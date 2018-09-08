@@ -1,6 +1,5 @@
 package com.skilldistillery.jets;
 
-import java.awt.PageAttributes.PrintQualityType;
 import java.util.Scanner;
 
 public class JetsApplication {
@@ -29,7 +28,7 @@ public class JetsApplication {
 				break;
 			case 4: System.out.println(ja.getLongest());
 				break;
-			case 5: 
+			case 5: ja.loadCargoJets();
 				break;
 			default:
 				System.out.println("Wrong choice");
@@ -43,13 +42,12 @@ public class JetsApplication {
 	}
 	
 	private void loadCargoJets() {
-		Jet[] loadedPlanes = new Jet[15];
+		CargoPlane x = null;
 		for (int i = 0; i < jets.length; i++) {
 			if (jets[i] != null) {
 				if(jets[i] instanceof CargoCarrier) {
-					j = 0;
-					loaderPlanes[j] = jets[i];
-					j++;
+					x = (CargoPlane) jets[i];
+					x.loadCargo();
 				}
 			}
 		}
