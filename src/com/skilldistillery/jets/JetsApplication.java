@@ -34,7 +34,7 @@ public class JetsApplication {
 				break;
 			case 6:ja.dogFight();
 				break;
-			case 7:
+			case 7: ja.addJet();
 				break;
 			case 8:
 				break;
@@ -47,6 +47,51 @@ public class JetsApplication {
 	}
 
 	public JetsApplication() {
+	}
+	
+	public void addJet() {
+		scanner = new Scanner(System.in);
+		System.out.println("Which plane would you like to add? \n");
+		System.out.println("1. Fighter jet \n2. Cargo plane \n3. Regular jet");
+		int choice = scanner.nextInt();
+		scanner.nextLine();
+		System.out.print("Enter the model: ");
+		String model = scanner.nextLine();
+		System.out.print("Enter the speed (MpH):");
+		double speed = scanner.nextDouble();
+		System.out.print("Enter the range: ");
+		int range = scanner.nextInt();
+		System.out.print("Enter the price: ");
+		long price = scanner.nextLong();
+		
+		
+		if (choice == 1) {
+			for (int i = 0; i < jets.length; i++) {
+				if(jets[i] == null) {
+					jets[i] = new FighterJet(model, speed, range, price);
+					System.out.println("Fighter jet parked in hangar " + i + ".");
+					break;
+				}
+			}
+		}
+		else if (choice == 2) {
+			for (int i = 0; i < jets.length; i++) {
+				if(jets[i] == null) {
+					jets[i] = new CargoPlane(model, speed, range, price);
+					System.out.println("Cargo plane parked in hangar " + i + ".");
+					break;
+				}
+			}
+		}
+		else if (choice == 3) {
+			for (int i = 0; i < jets.length; i++) {
+				if(jets[i] == null) {
+					jets[i] = new JetImpl(model, speed, range, price);
+					System.out.println("Jet parked in hangar " + i + ".");
+					break;
+				}
+			}
+		}
 	}
 
 	private void loadCargoJets() {
@@ -130,7 +175,7 @@ public class JetsApplication {
 	private int displayUserMenu() {
 		System.out.println("What are your orders, Ma'am?");
 		System.out.println(
-				"1. List fleet \n2. Fly all jets \n3. View Fastest jet \n4. View jet with the longest range \n5. Load all Cargo Jets \n6. Dogfight! \n7. Add a jet to fleet! \n8. Quit \n9. Quit");
+				"1. List fleet \n2. Fly all jets \n3. View Fastest jet \n4. View jet with the longest range \n5. Load all Cargo Jets \n6. Dogfight! \n7. Add a jet to fleet! \n8. Quit");
 		int choice = scanner.nextInt();
 		return choice;
 

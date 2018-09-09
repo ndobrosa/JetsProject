@@ -45,6 +45,8 @@ public Jet (String model, double speed, int range, long price) {
 	this.price = price;
 }
 
+
+
 public void fly () {
 	System.out.println("model: " + model + "  top speed: " + speed + "  range: " + range + "\tprice: " + price + "  time before crash: " + (range/speed));
 }
