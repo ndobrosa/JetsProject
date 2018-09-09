@@ -32,23 +32,42 @@ public class JetsApplication {
 			case 5:
 				ja.loadCargoJets();
 				break;
-			case 6:ja.dogFight();
+			case 6:
+				ja.dogFight();
 				break;
-			case 7: ja.addJet();
+			case 7:
+				ja.addJet();
 				break;
 			case 8:
+				ja.flyIndividual();
+				break;
+			case 9:
 				break;
 			default:
 				System.out.println("That option is not yet available");
 			}
-		} while (choice != 8);
+		} while (choice != 9);
 
 		ja.launch();
 	}
 
 	public JetsApplication() {
 	}
-	
+
+	private void flyIndividual() {
+		Jet[] jets;
+		jets = airfield.getJets();
+		System.out.println("Choose the plane: ");
+		for (int i = 0; i < jets.length; i++) {
+			if (jets[i] != null) {
+				System.out.println((i + 1) + "." + jets[i].getModel());
+			}
+		}
+
+		int choice = scanner.nextInt();
+		jets[choice - 1].fly();
+	}
+
 	public void addJet() {
 		scanner = new Scanner(System.in);
 		System.out.println("Which plane would you like to add? \n");
@@ -63,29 +82,26 @@ public class JetsApplication {
 		int range = scanner.nextInt();
 		System.out.print("Enter the price: ");
 		long price = scanner.nextLong();
-		
-		
+
 		if (choice == 1) {
 			for (int i = 0; i < jets.length; i++) {
-				if(jets[i] == null) {
+				if (jets[i] == null) {
 					jets[i] = new FighterJet(model, speed, range, price);
 					System.out.println("Fighter jet parked in hangar " + i + ".");
 					break;
 				}
 			}
-		}
-		else if (choice == 2) {
+		} else if (choice == 2) {
 			for (int i = 0; i < jets.length; i++) {
-				if(jets[i] == null) {
+				if (jets[i] == null) {
 					jets[i] = new CargoPlane(model, speed, range, price);
 					System.out.println("Cargo plane parked in hangar " + i + ".");
 					break;
 				}
 			}
-		}
-		else if (choice == 3) {
+		} else if (choice == 3) {
 			for (int i = 0; i < jets.length; i++) {
-				if(jets[i] == null) {
+				if (jets[i] == null) {
 					jets[i] = new JetImpl(model, speed, range, price);
 					System.out.println("Jet parked in hangar " + i + ".");
 					break;
@@ -107,17 +123,18 @@ public class JetsApplication {
 		}
 
 	}
-	private void dogFight () {
+
+	private void dogFight() {
 		FighterJet x = null;
 		for (int i = 0; i < jets.length; i++) {
 			if (jets[i] != null) {
 				if (jets[i] instanceof FighterJet) {
-						x = (FighterJet) jets[i];
+					x = (FighterJet) jets[i];
 					x.fight();
 				}
 			}
 		}
-		
+
 	}
 
 	private Jet getFastest() {
@@ -163,9 +180,11 @@ public class JetsApplication {
 	}
 
 	private void printPlanes() {
+		int choice;
 		for (int i = 0; i < jets.length; i++) {
 			if (jets[i] != null)
 				System.out.println(jets[i]);
+			choice = scanner.nextInt();
 		}
 	}
 
@@ -175,7 +194,7 @@ public class JetsApplication {
 	private int displayUserMenu() {
 		System.out.println("What are your orders, Ma'am?");
 		System.out.println(
-				"1. List fleet \n2. Fly all jets \n3. View Fastest jet \n4. View jet with the longest range \n5. Load all Cargo Jets \n6. Dogfight! \n7. Add a jet to fleet! \n8. Quit");
+				"1. List fleet \n2. Fly all jets \n3. View Fastest jet \n4. View jet with the longest range \n5. Load all Cargo Jets \n6. Dogfight! \n7. Add a jet to fleet! \n8. Fly an individual jet \n9. Quit");
 		int choice = scanner.nextInt();
 		return choice;
 
